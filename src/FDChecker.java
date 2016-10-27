@@ -18,14 +18,32 @@ public class FDChecker {
 		//sufficient to enforce the global properties
 		//To check a particular functional dependency a -> b is preserved, 
 		//you can run the following algorithm
+		for (FunctionalDependency fd: fds) {
 		//result = a
+			AttributeSet result = new AttributeSet(fd.left);
+			int currentSize = result.size();
+			int changedSize = result.size();
 		//while result has not stabilized
-		//	for each table in the decomposition
+			do {
+				currentSize = result.size();
+				AttributeSet X = new AttributeSet(t1);
+				AttributeSet Y = new AttributeSet(t2);
 		//		t = result intersect table 
+				AttributeSet temp1 = X.intersection(result);
+				AttributeSet temp2 = Y.intersection(result);
 		//		t = closure(t) intersect table
+				temp1 = closure (temp1, fds).intersection(X);
+				temp2 = closure (temp2, fds).intersection(Y);
 		//		result = result union t
+				result = result.union(temp1);
+				result = result.union(temp2);
+				changedSize = result.size();
+			} while(currentSize < changedSize);
 		//if b is contained in result, the dependency is preserved
-		return false;
+		if(!result.contains(fd.right))
+			return false;
+		}
+		return true;
 	}
 
 	/**

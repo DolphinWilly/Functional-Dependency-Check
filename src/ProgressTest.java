@@ -49,5 +49,45 @@ public class ProgressTest {
 		assertEquals(cl2.size(), 3);
 
 	}
+	
+	// test AttributeSet Intersection
+	@Test
+	public void intersectionTest() {
+		AttributeSet as1 = new AttributeSet();
+		AttributeSet as2 = new AttributeSet();
+		as1.add(new Attribute("A"));
+		as1.add(new Attribute("B"));
+		as1.add(new Attribute("C"));
+		as2.add(new Attribute("D"));
+		as2.add(new Attribute("B"));
+		as2.add(new Attribute("C"));
+		AttributeSet intsec = as1.intersection(as2);
+		AttributeSet test = new AttributeSet();
+		test.add(new Attribute("B"));
+		test.add(new Attribute("C"));		
+		assertEquals(test, intsec);
+
+	}
+	
+	// test AttributeSet Union
+	@Test
+	public void unionTest() {
+		AttributeSet as1 = new AttributeSet();
+		AttributeSet as2 = new AttributeSet();
+		as1.add(new Attribute("A"));
+		as1.add(new Attribute("B"));
+		as1.add(new Attribute("C"));
+		as2.add(new Attribute("D"));
+		as2.add(new Attribute("B"));
+		as2.add(new Attribute("C"));
+		AttributeSet un = as1.union(as2);
+		AttributeSet test = new AttributeSet();
+		test.add(new Attribute("A"));
+		test.add(new Attribute("D"));
+		test.add(new Attribute("B"));
+		test.add(new Attribute("C"));		
+		assertEquals(test, un);
+
+	}
 
 }

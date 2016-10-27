@@ -18,4 +18,21 @@ public class AttributeSet extends HashSet<Attribute> {
 		}
 		return true;
 	}
+	
+	public AttributeSet intersection(AttributeSet aSet) {
+		AttributeSet result = new AttributeSet();
+		for (Attribute a: aSet) {
+			if (this.contains(a))
+				result.add(a);
+		}
+		return result;
+	}
+	
+	public AttributeSet union(AttributeSet aSet) {
+		AttributeSet result = new AttributeSet();
+		result.addAll(this);
+		result.addAll(aSet);
+		return result;
+	}
+	
 }
